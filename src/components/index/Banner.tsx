@@ -4,7 +4,8 @@ import logo from "../../logo.svg"
 import { useEffect, useState } from "react";
 import { getProducts } from "../../query/action";
 import ProductBanner from "./ProductsBanner/ProductBanner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ProductInfo } from "../../types/product";
 
 export interface PaginateData {
     startIndex: number;
@@ -20,7 +21,7 @@ const Banner = () => {
     const [filterPriceRange, setFilterPriceRange] = useState<string>('');
     const [paginateValue, setPaginateValue] = useState<PaginateData>({
         startIndex: 1,
-        endIndex: 7
+        endIndex: 5
     });
 
     const [fullResponse, setFullResponse] = useState([]);
@@ -58,6 +59,8 @@ const Banner = () => {
 
 
     const handleSearch = async () => {
+        setFilterCategory("");
+        setFilterPriceRange("");
         const productData = await getProducts({
             searchValue,
             filterCategory,
@@ -68,23 +71,23 @@ const Banner = () => {
 
     const handleDecreament = async () => {
         setPaginateValue((prevValue: PaginateData) => ({
-            startIndex: prevValue.startIndex - 7,
-            endIndex: prevValue.endIndex - 7,
+            startIndex: prevValue.startIndex - 5,
+            endIndex: prevValue.endIndex - 5,
         }));
         const products = await getProducts({
             searchValue,
             filterCategory,
             filterPriceRange,
-            startIndex: paginateValue.startIndex - 7,
-            endIndex: paginateValue.endIndex - 7,
+            startIndex: paginateValue.startIndex - 5,
+            endIndex: paginateValue.endIndex - 5,
         });
     }
 
 
     const handleIncreament = async () => {
         setPaginateValue((prevValue: PaginateData) => ({
-            startIndex: prevValue.startIndex + 7,
-            endIndex: prevValue.endIndex + 7,
+            startIndex: prevValue.startIndex + 5,
+            endIndex: prevValue.endIndex + 5,
         }))
         const products = await getProducts({
             searchValue,
@@ -148,7 +151,7 @@ const Banner = () => {
             <table className="w-full mt-4">
                 <thead className="">
                     <tr style={{ padding: '4rem', textAlign: 'center' }} className="bg-gray-100 h-[50px]">
-                        <th className="text-center">image</th>
+                        <th className="text-center">    </th>
                         <th className="text-center">product</th>
                         <th className="text-center">price</th>
                         <th className="text-center">category</th>
@@ -156,14 +159,25 @@ const Banner = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {fullResponse?.length > 0 ?
-                        <ProductBanner /> : <div className="font-bold text-red-500 relative"><h3 className="absolute top-[130px] left-[550px] text-2xl">No Items Currently Available....</h3></div>
-                    }
+                    {fullResponse?.length && ( fullResponse.map((product: ProductInfo) =>
+                        <ProductBanner
+                           id={product?.id}
+                           name={product?.name}
+                           price={product?.price}
+                           category={product?.category}
+                           imageUrl={product?.imageUrl}
+                           isInStock={String(product?.isInStock)} 
+                        /> ) ) }
+                    { !fullResponse && ( 
+                        <div className="font-bold text-red-500 relative">
+                            <h3 className="absolute top-[130px] left-[550px] text-2xl">No Items Currently Available....</h3>
+                        </div> ) }
+                    
                 </tbody>
             </table>
 
-            <div className="relative top-[55%] w-full flex">
-                {paginateValue.startIndex > 7 && (<button className="absolute right-[180px] font-bold" onClick={handleDecreament}>previous</button>)}
+            <div className="relative top-[4%] w-full flex">
+                {paginateValue.startIndex > 5 && (<button className="absolute right-[180px] font-bold" onClick={handleDecreament}>previous</button>)}
                 <p className="font-semibold absolute right-[130px]">{paginateValue.startIndex}-{paginateValue.endIndex}</p>
                 <button className="absolute right-[75px] font-bold" onClick={handleIncreament}>Next</button>
             </div>

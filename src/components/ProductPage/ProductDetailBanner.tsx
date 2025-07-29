@@ -4,20 +4,21 @@ import { CiStar } from "react-icons/ci";
 import { LuChrome } from "react-icons/lu";
 import product from '../../respiratory-protection.png'
 import { CiDollar } from "react-icons/ci";
+import { ProductInfo } from '../../types/product';
 
 
 const productSizes = ['SM', 'XXL', 'LG', 'MD'];
 const productColors = ['#ffff', '#00000', '#ffff'];
 
-const ProductDetailBanner = () => {
+const ProductDetailBanner = ({ id, name, category, price, imageUrl, isInStock }: ProductInfo) => {
     return (
         <div className='lg:w-full lg:h-[1782px] lg:px-[100px] lg:py-[40px] lg:flex lg:flex-row md:w-[624px] md:h-[1,894.98px] md:flex md:flex-col md:gap-[32px] lg:ml-[0] md:ml-[67px] max-sm:w-full max-sm:h-[1747.98px] max-sm:flex max-sm:flex-col max-sm:gap-[32px] max-sm:px-5'>
             <div className='lg:w-[800px] lg:h-[1782px] md:hidden max-sm:hidden lg:block'>
                 <div className='lg:w-[950px] lg:h-[1782px]'>
-                    <img src={product} alt="" className='lg:w-[550px] lg:h-[550px]' />
+                    <img src={imageUrl} alt="" className='lg:w-[550px] lg:h-[550px]' />
                     <div className='lg:w-[632px] lg:h-[600.97px] lg:flex lg:gap-[155px] lg:mt-[20px]'>
-                        <img src={product} alt="" className='lg:w-[222px] lg:h-[290.97px] lg:top-[1079px] lg:rounded-[8px]' />
-                        <img src={product} alt="" className='lg:w-[222px] lg:h-[290.97px] lg:top-[1079px] lg:rounded-[8px]' />
+                        <img src={imageUrl} alt="" className='lg:w-[222px] lg:h-[290.97px] lg:top-[1079px] lg:rounded-[8px]' />
+                        <img src={imageUrl} alt="" className='lg:w-[222px] lg:h-[290.97px] lg:top-[1079px] lg:rounded-[8px]' />
                     </div>
                 </div>
             </div>
@@ -25,9 +26,9 @@ const ProductDetailBanner = () => {
                 <div className='lg:w-[488px] lg:h-[64px] lg:left-[728px] lg:flex lg:flex-col lg:gap-[16px] md:flex md:flex-col md:w-[624px] md:h-[64px] md:gap-[32px] max-sm:w-full max-sm:h-[64px] max-sm:flex max-sm:flex-col max-sm:gap-[16px]'>
                     <div className='lg:w-full lg:h-[28px] lg:flex lg:justify-between lg:pr-[0px] md:w-[624px] md:h-[28px] md:flex md:justify-between max-sm:w-full max-sm:h-[28px] max-sm:flex max-sm:justify-between'>
                         {/* heading of the product */}
-                        <p className='lg:w-[300px] lg:h-[28px] text-gray-900 font-medium lg:text-[20px] lg:leading-[28px] lg:tracking-[0] lg:flex lg:items-center md:w-[422px] md:h-[28px] md:text-[20px] md:leading-[28px] md:tracking-[0] max-sm:w-[302px] max-sm:h-[28px] max-sm:text-[20px] max-sm:leading-[28px] max-sm:tracking-[0]'>This is Product Title</p>
+                        <p className='lg:w-[300px] lg:h-[28px] text-gray-900 font-medium lg:text-[20px] lg:leading-[28px] lg:tracking-[0] lg:flex lg:items-center md:w-[422px] md:h-[28px] md:text-[20px] md:leading-[28px] md:tracking-[0] max-sm:w-[302px] max-sm:h-[28px] max-sm:text-[20px] max-sm:leading-[28px] max-sm:tracking-[0]'>{name}</p>
                         {/* price of the product */}
-                        <p className='lg:w-[39px] lg:h-[28px] text-gray-900 font-medium lg:text-[20px] lg:leading-[28px] lg:tracking-[0] lg:flex lg:items-center md:w-[39px] md:h-[28px] md:text-[20px] md:leading-[28px] md:tracking-[0%] max-sm:w-[39px] max-sm:h-[28px] max-sm:text-[20px] max-sm:leading-[28px] max-sm:tracking-[0]'>$400</p>
+                        <p className='lg:w-[39px] lg:h-[28px] text-gray-900 font-medium lg:text-[20px] lg:leading-[28px] lg:tracking-[0] lg:flex lg:items-center md:w-[39px] md:h-[28px] md:text-[20px] md:leading-[28px] md:tracking-[0%] max-sm:w-[39px] max-sm:h-[28px] max-sm:text-[20px] max-sm:leading-[28px] max-sm:tracking-[0]'>${price}</p>
                     </div>
                     <div className='lg:w-[488px] lg:h-[20px] lg:flex md:w-[624px] md:h-[20px] md:flex max-sm:w-full max-sm:h-[20px] max-sm:flex'>
                         {/* rating of the product */}
