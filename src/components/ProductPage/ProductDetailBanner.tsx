@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CiStar } from "react-icons/ci";
 import { LuChrome } from "react-icons/lu";
@@ -11,6 +11,13 @@ const productSizes = ['SM', 'XXL', 'LG', 'MD'];
 const productColors = ['#ffff', '#00000', '#ffff'];
 
 const ProductDetailBanner = ({ id, name, category, price, imageUrl, isInStock }: ProductInfo) => {
+
+    const [selectedSize, setSelectedSize] = useState<string>('');
+
+    const handleProductSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+    }
+
     return (
         <div className='lg:w-full lg:h-[1782px] lg:px-[100px] lg:py-[40px] lg:flex lg:flex-row md:w-[624px] md:h-[1,894.98px] md:flex md:flex-col md:gap-[32px] lg:ml-[0] md:ml-[67px] max-sm:w-full max-sm:h-[1747.98px] max-sm:flex max-sm:flex-col max-sm:gap-[32px] max-sm:px-5'>
             <div className='lg:w-[800px] lg:h-[1782px] md:hidden max-sm:hidden lg:block'>
@@ -52,7 +59,7 @@ const ProductDetailBanner = ({ id, name, category, price, imageUrl, isInStock }:
                 <div className='lg:hidden md:block max-sm:block md:w-full md:h-[936px] max-sm:w-full max-sm:h-[537px] max-sm:mt-9'>
                     <img src={product} alt="" className='md:w-full md:h-[936px] max-sm:w-full max-sm:h-[537px] max-sm:rounded-lg' />
                 </div>
-                <form action="" className='lg:w-[488px] lg:h-[248px] lg:flex lg:flex-col lg:gap-[32px] lg:mt-[20px] md:w-[624px] md:h-[248px] md:flex md:flex-col md:gap-[32px] md:mt-[20px] max-sm:w-full max-sm:h-[306px] max-sm:flex max-sm:flex-col max-sm:gap-[32px] max-sm:mt-8'>
+                <form onSubmit={handleProductSubmit} className='lg:w-[488px] lg:h-[248px] lg:flex lg:flex-col lg:gap-[32px] lg:mt-[20px] md:w-[624px] md:h-[248px] md:flex md:flex-col md:gap-[32px] md:mt-[20px] max-sm:w-full max-sm:h-[306px] max-sm:flex max-sm:flex-col max-sm:gap-[32px] max-sm:mt-8'>
                     <div className='lg:w-[488px] lg:h-[60px] lg:flex lg:flex-col lg:gap-[8px] md:w-[624px] md:h-[60px] md:flex md:flex-col md:gap-[8px] max-sm:flex max-sm:flex-col max-sm:gap-[8px]'>
                         <h2 className='lg:w-[488px] lg:h-[20px] text-gray-900 font-medium text-[14px] leading-[20px] tracking-[0] flex items-center md:w-[624px] md:h-[20px] md:text-[14px] md:leading-[20px] md:tracking-[0] md:flex md:items-center max-sm:w-[358px] max-sm:h-[20px] max-sm:text-sm max-sm:leading-[20px] max-sm:align-middle'>Color</h2>
                         <div className='lg:w-[488px] lg:h-[32px] lg:flex lg:gap-[7px] md:w-[624px] md:h-[32px] md:flex md:gap-[15px] max-sm:w-[358px] max-sm:h-[32px] max-sm:flex max-sm:gap-[12px]'>
@@ -63,17 +70,19 @@ const ProductDetailBanner = ({ id, name, category, price, imageUrl, isInStock }:
                             )}
                         </div>
                     </div>
-                    <div className='lg:w-[488px] lg:h-[74px] lg:flex lg:flex-col lg:gap-[8px] md:w-[624px] md:h-[74px] md:flex md:flex-col md:gap-[8px] max-sm:w-[358px] max-sm:h-[132px] max-sm:flex max-sm:flex-col max-sm:gap-2'>
-                        <div className='lg:w-[488px] lg:h-[20px] lg:flex lg:justify-between md:w-[624px] md:h-[20px] md:justify-between md:flex max-sm:w-[358px] max-sm:h-[20px] max-sm:flex max-sm:justify-between'>
-                            <h2 className='lg:w-[29px] lg:h-[20px] text-gray-900 font-medium lg:text-[14px] lg:leading-[20px] lg:tracking-[0] lg:align-middle md:w-[29px] md:h-[20px] md:text-[14px] md:leading-[20px] md:tracking-[0] md:flex md:items-center max-sm:w-[29px] max-sm:h-[29px] max-sm:text-sm max-sm:leading-5 max-sm:align-middle'>Size</h2>
-                            <Link to={''} className='lg:w-[108px] lg:h-[20px] md:w-[108px] md:h-[20px] max-sm:w-[108px] max-sm:h-[20px]'><p className='lg:w-[108px] lg:h-[20px] text-indigo-600 font-medium lg:text-[14px] lg:leading-[20px] lg:tracking-[0] lg:align-middle md:text-[14px] md:leading-[20px] md:tracking-[0] md:flex md:items-center max-sm:text-sm max-sm:leading-5 max-sm:align-middle'>See sizing chart</p></Link>
+                    { category === 'clothing' ? (
+                        <div className='lg:w-[488px] lg:h-[74px] lg:flex lg:flex-col lg:gap-[8px] md:w-[624px] md:h-[74px] md:flex md:flex-col md:gap-[8px] max-sm:w-[358px] max-sm:h-[132px] max-sm:flex max-sm:flex-col max-sm:gap-2'>
+                            <div className='lg:w-[488px] lg:h-[20px] lg:flex lg:justify-between md:w-[624px] md:h-[20px] md:justify-between md:flex max-sm:w-[358px] max-sm:h-[20px] max-sm:flex max-sm:justify-between'>
+                                <h2 className='lg:w-[29px] lg:h-[20px] text-gray-900 font-medium lg:text-[14px] lg:leading-[20px] lg:tracking-[0] lg:align-middle md:w-[29px] md:h-[20px] md:text-[14px] md:leading-[20px] md:tracking-[0] md:flex md:items-center max-sm:w-[29px] max-sm:h-[29px] max-sm:text-sm max-sm:leading-5 max-sm:align-middle'>Size</h2>
+                                <Link to={''} className='lg:w-[108px] lg:h-[20px] md:w-[108px] md:h-[20px] max-sm:w-[108px] max-sm:h-[20px]'><p className='lg:w-[108px] lg:h-[20px] text-indigo-600 font-medium lg:text-[14px] lg:leading-[20px] lg:tracking-[0] lg:align-middle md:text-[14px] md:leading-[20px] md:tracking-[0] md:flex md:items-center max-sm:text-sm max-sm:leading-5 max-sm:align-middle'>See sizing chart</p></Link>
+                            </div>
+                            <div className='lg:w-[488px] lg:h-[46px] lg:flex lg:gap-[12px] md:w-[624px] md:h-[46px] md:flex md:gap-[12px] max-sm:w-[358px] max-sm:h-[104px] max-sm:grid max-sm:grid-rows-2 max-sm:grid-cols-3 max-sm:place-content-between max-sm:gap-3'>
+                                {productSizes?.map((size: string) => (
+                                    <div className={`border-gray-200 border-[1px] lg:px-[16px] py-[9px] md:py-[13px] md:px-[33.17px] max-sm:text-center max-sm:pt-2 ${selectedSize === size ? 'bg-blue-600 text-white' : ""}`} onClick={() => setSelectedSize(size)}>{size}</div>
+                                ))}
+                            </div>
                         </div>
-                        <div className='lg:w-[488px] lg:h-[46px] lg:flex lg:gap-[12px] md:w-[624px] md:h-[46px] md:flex md:gap-[12px] max-sm:w-[358px] max-sm:h-[104px] max-sm:grid max-sm:grid-rows-2 max-sm:grid-cols-3 max-sm:place-content-between max-sm:gap-3'>
-                            {productSizes?.map((size: string) => (
-                                <div className='border-gray-200 border-[1px] lg:px-[16px] py-[9px] md:py-[13px] md:px-[33.17px] max-sm:text-center max-sm:pt-2'>{size}</div>
-                            ))}
-                        </div>
-                    </div>
+                    ) : ""}
                     <button className='lg:w-[488px] lg:h-[50px] lg:rounded-[6px] lg:pt-[13px] lg:pr-[200.62px] lg:pb-[13px] lg:pl-[200px] bg-indigo-600 text-white md:w-[624px] md:h-[50px] md:rounded-[6px] md:py-[13px] md:px-[268.62px] max-sm:w-full max-sm:h-[50px] max-sm:rounded-[6px] max-sm:pt-[13px] max-sm:pr-[135.62px] max-sm:pb-[13px] max-sm:pl-[135.61px]'><p className='lg:w-[86px] lg:h-[24px] lg:max-w-[422px] font-medium lg:text-[16px] lg:leading-[24px] lg:tracking-[0%] lg:flex lg:justify-center lg:items-center md:text-[16px] md:leading-[24px] md:tracking-[0] md:text-center md:flex md:items-center max-sm:text-[16px] max-sm:leading-[24px] max-sm:tracking-[0em] max-sm:text-center text-white'>Add to cart</p></button>
                 </form>
                 <div className='lg:w-full lg:h-[854.98px]'>

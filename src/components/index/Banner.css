@@ -1,0 +1,51 @@
+.main-box {
+    animation: main-box 2s linear 0s 1 alternate forwards running;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    width: 240px; /* Tailwind w-60 = 15rem = 240px */
+    background-color: #d1d5db; /* Tailwind bg-gray-300 */
+    justify-content: center;
+    align-items: center;
+    gap: 12px; /* Tailwind gap-3 = 0.75rem = 12px */
+    position: absolute;
+    top: -40px;
+    left: 118%;
+    border-radius: 12px; /* Tailwind rounded-xl = 0.75rem = 12px */
+}
+
+.status-box {
+    animation: box-width-increase 4s linear 0s 1 alternate forwards running;
+    background-color: red;
+    width: 7px;
+    height: 7px;
+    left: 0;
+    transform-origin: left right;
+    position: relative;
+    top: 8px;
+    left: 0;
+    border-radius: 3px;
+}
+
+@keyframes box-width-increase {
+    from{ 
+        width: 7px;
+        
+     } 
+    to{
+        width: 100%;
+    }
+}
+
+@keyframes main-box {
+    0% {
+        transform: translateX(-10px);
+    }
+    50% {
+        transform: translateX(-300px);
+    }
+    100% {
+        transform: translateX(-500px);
+    }
+}

@@ -1,11 +1,15 @@
 import { IoSearch } from "react-icons/io5";
 import 'primeicons/primeicons.css';
-import logo from "../../logo.svg"
+import logo from "../../logo.svg";
+import './Banner.css';
 import { useEffect, useState } from "react";
 import { getProducts } from "../../query/action";
 import ProductBanner from "./ProductsBanner/ProductBanner";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductInfo } from "../../types/product";
+import { MdVerified } from 'react-icons/md';
+import { TbArrowsCross } from 'react-icons/tb';
+import { useEcommerceStore } from "../../store";
 
 export interface PaginateData {
     startIndex: number;
@@ -15,6 +19,9 @@ export interface PaginateData {
 const Banner = () => {
 
     const navigate = useNavigate();
+    const showPopup = useEcommerceStore(state => state?.showProductAvailablePopup);
+    const handleShowAvailable = useEcommerceStore(state => state?.handleProductShowPopup);
+    const handleclosePopUp = useEcommerceStore(state => state?.handleProductClosePopup);
 
     const [searchValue, setSearchValue] = useState<string>('');
     const [filterCategory, setFilterCategory] = useState<string>('');
@@ -24,11 +31,10 @@ const Banner = () => {
         endIndex: 5
     });
 
-    const [fullResponse, setFullResponse] = useState([]);
-    const [filteredResponse, setFilteredResponse] = useState([]);
-    const [searchDataResponse, setSearchDataResponse] = useState([]);
+    const [fullResponse, setFullResponse] = useState<ProductInfo[]>([]);
+    const [isCardClosed, setCardClosed] = useState<boolean>(true);
 
-    
+
     const handleCategoryChange = async (ev: any) => {
         setSearchValue("");
         const selected = ev.target.value;
@@ -37,8 +43,11 @@ const Banner = () => {
             const productData = await getProducts({
                 searchValue,
                 filterCategory: selected,
-                filterPriceRange
+                filterPriceRange,
+                startIndex: paginateValue.startIndex,
+                endIndex: paginateValue.endIndex,
             });
+            setFullResponse(productData);
         } catch (err) {
             navigate('/some-wrong');
         }
@@ -54,7 +63,10 @@ const Banner = () => {
             searchValue,
             filterCategory,
             filterPriceRange: selected,
+            startIndex: paginateValue.startIndex,
+            endIndex: paginateValue.endIndex,
         });
+        setFullResponse(productData);
     };
 
 
@@ -66,6 +78,7 @@ const Banner = () => {
             filterCategory,
             filterPriceRange
         });
+        setFullResponse(productData);
     }
 
 
@@ -98,7 +111,11 @@ const Banner = () => {
         });
     }
 
+    const handleCardClose = () => {
+        handleclosePopUp();
+    }
 
+    
     useEffect(() => {
         console.log(paginateValue.startIndex, paginateValue.endIndex);
         async function fetchData() {
@@ -110,14 +127,22 @@ const Banner = () => {
                 endIndex: paginateValue.endIndex,
             });
             console.log("productData:", productData?.data?.data);
-            setFullResponse(productData?.data?.data);
+            setFullResponse(productData);
         }
         fetchData();
     }, [paginateValue]);
 
 
     return (
-        <section className='bg-white h-[100%] shadow-2xl rounded-[44px]'>
+        <section className='bg-white h-[100%] shadow-2xl rounded-[44px] relative '>
+            { showPopup ?
+                <div className="main-box" onClick={handleCardClose}>
+                    <div className="flex relative">
+                        <button><TbArrowsCross className="absolute right-[112%] top-1 text-red-500" /></button>
+                        <p>Item is out of stock</p>
+                    </div>
+                    <div className="status-box"></div>
+                </div> : ""}
             <div className='flex gap-6 border-b-2 h-[8%] w-full relative'>
                 <button className='active:border-b-black active:border-b-1 absolute top-[13px] left-[4%]'><h3 className='font-bold '>All products</h3></button>
                 <button className='active:border-b-black active:border-b-1 absolute top-[13px] left-[15%]'><h3 className='font-bold'>Active products</h3></button>
@@ -159,20 +184,20 @@ const Banner = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {fullResponse?.length && ( fullResponse.map((product: ProductInfo) =>
+                    {fullResponse?.length && (fullResponse.map((product: ProductInfo) =>
                         <ProductBanner
-                           id={product?.id}
-                           name={product?.name}
-                           price={product?.price}
-                           category={product?.category}
-                           imageUrl={product?.imageUrl}
-                           isInStock={String(product?.isInStock)} 
-                        /> ) ) }
-                    { !fullResponse && ( 
+                            id={product?.id}
+                            name={product?.name}
+                            price={product?.price}
+                            category={product?.category}
+                            imageUrl={product?.imageUrl}
+                            isInStock={String(product?.isInStock)}
+                        />))}
+                    {!fullResponse && (
                         <div className="font-bold text-red-500 relative">
                             <h3 className="absolute top-[130px] left-[550px] text-2xl">No Items Currently Available....</h3>
-                        </div> ) }
-                    
+                        </div>)}
+
                 </tbody>
             </table>
 
