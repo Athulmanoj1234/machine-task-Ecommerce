@@ -115,7 +115,26 @@ const Banner = () => {
         handleclosePopUp();
     }
 
-    
+    const handleSearchChange = async (e: any) => {
+        if (filterCategory == "" && filterPriceRange == "") {
+            setSearchValue(e.target.value);
+            setTimeout(async () => {
+                const productData = await getProducts({
+                    searchValue,
+                    filterCategory,
+                    filterPriceRange,
+                    startIndex: paginateValue?.startIndex,
+                    endIndex: paginateValue?.endIndex,
+                });
+                return setFullResponse(productData);
+            }, 1000)
+
+        }
+        setFilterCategory("");
+        setFilterPriceRange("");
+    }
+
+
     useEffect(() => {
         console.log(paginateValue.startIndex, paginateValue.endIndex);
         async function fetchData() {
@@ -135,7 +154,7 @@ const Banner = () => {
 
     return (
         <section className='bg-white h-[100%] shadow-2xl rounded-[44px] relative '>
-            { showPopup ?
+            {showPopup ?
                 <div className="main-box" onClick={handleCardClose}>
                     <div className="flex relative">
                         <button><TbArrowsCross className="absolute right-[112%] top-1 text-red-500" /></button>
@@ -149,7 +168,7 @@ const Banner = () => {
             </div>
             <div className='flex h-[10%] p-3 w-full gap-[250px]'>
                 <div className='w-[50%] relative'>
-                    <input type="text" className='border-2 border-gray-400 w-[80%] rounded-xl outline-none font-normal pl-9' value={searchValue} onChange={ev => setSearchValue(ev.target.value)} />
+                    <input type="text" className='border-2 border-gray-400 w-[80%] rounded-xl outline-none font-normal pl-9' value={searchValue} onChange={handleSearchChange} />
                     <button onClick={handleSearch}><span className="pi pi-search absolute right-[96%] bottom-[30%]"></span></button>
                 </div>
                 <div className='w-[50%] flex '>
@@ -184,7 +203,7 @@ const Banner = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {fullResponse?.length && (fullResponse.map((product: ProductInfo) =>
+                    {fullResponse?.length > 0 && (fullResponse.map((product: ProductInfo) =>
                         <ProductBanner
                             id={product?.id}
                             name={product?.name}

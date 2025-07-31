@@ -9,7 +9,7 @@ const RelatedProductCard = ({ id, name, category, price, imageUrl, isInStock }: 
     return (
         <div className='lg:w-[280px] lg:h-[380.5px] lg:flex lg:flex-col lg:gap-[16px] lg:mt-12 md:w-[300px] md:h-[360.5px] md:flex md:flex-col md:gap-[16px] max-sm:w-[358px] max-sm:h-[418.5px] max-sm:flex max-sm:flex-col max-sm:gap-[16px]' >
             <div className='lg:w-full lg:h-[320px] lg:rounded-[6px] md:w-[300px] md:h-[300px] md:rounded-[6px] max-sm:w-full max-sm:h-[358px] max-sm:rounded-[6px]'>
-                <Link to={`/product/${id}`}><img src={imageUrl} alt="" className='lg:w-[280px] lg:h-[320px] md:w-[300px] md:h-[300px] max-sm:w-full max-sm:h-[358px]' /></Link>
+                <img src={imageUrl} alt="" className='lg:w-[280px] lg:h-[320px] md:w-[300px] md:h-[300px] max-sm:w-full max-sm:h-[358px]' />
             </div>
             <div className='lg:w-[280px] lg:h-[44.5px] lg:flex lg:justify-between md:w-[300px] md:h-[44.5px] md:flex md:justify-between max-sm:w-[358px] max-sm:h-[44.5px] max-sm:flex max-sm:justify-between'>
                 <div className='lg:w-[84px] lg:h-[4.5px] lg:flex lg:flex-col lg:gap-[4px] md:w-[64px] md:h-[44.5px] md:flex md:flex-col md:gap-[4px] max-sm:w-[84px] max-sm:h-[44.5px] max-sm:flex max-sm:flex-col max-sm:gap-[4px]'>
