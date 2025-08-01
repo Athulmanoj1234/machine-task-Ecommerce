@@ -153,7 +153,7 @@ const Banner = () => {
 
 
     return (
-        <section className='bg-white h-[100%] shadow-2xl rounded-[44px] relative '>
+        <section className={`${showPopup ? 'bg-slate-300' : '' } bg-white h-[100%]  shadow-2xl rounded-[44px] relative `}>
             {showPopup ?
                 <div className="main-box" onClick={handleCardClose}>
                     <div className="flex relative">

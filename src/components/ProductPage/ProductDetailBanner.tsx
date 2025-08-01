@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { CiStar } from "react-icons/ci";
 import { LuChrome } from "react-icons/lu";
 import product from '../../respiratory-protection.png'
@@ -11,6 +11,8 @@ const productSizes = ['SM', 'XXL', 'LG', 'MD'];
 const productColors = ['#ffff', '#00000', '#ffff'];
 
 const ProductDetailBanner = ({ id, name, category, price, imageUrl, isInStock }: ProductInfo) => {
+
+    const navigate = useNavigate();
 
     const [selectedSize, setSelectedSize] = useState<string>('');
 
@@ -57,7 +59,7 @@ const ProductDetailBanner = ({ id, name, category, price, imageUrl, isInStock }:
                 </div>
                 {/* for medium devices image */}
                 <div className='lg:hidden md:block max-sm:block md:w-full md:h-[936px] max-sm:w-full max-sm:h-[537px] max-sm:mt-9'>
-                    <img src={product} alt="" className='md:w-full md:h-[936px] max-sm:w-full max-sm:h-[537px] max-sm:rounded-lg' />
+                    <img src={imageUrl} alt="" className='md:w-full md:h-[936px] max-sm:w-full max-sm:h-[537px] max-sm:rounded-lg' />
                 </div>
                 <form onSubmit={handleProductSubmit} className='lg:w-[488px] lg:h-[248px] lg:flex lg:flex-col lg:gap-[32px] lg:mt-[20px] md:w-[624px] md:h-[248px] md:flex md:flex-col md:gap-[32px] md:mt-[20px] max-sm:w-full max-sm:h-[306px] max-sm:flex max-sm:flex-col max-sm:gap-[32px] max-sm:mt-8'>
                     <div className='lg:w-[488px] lg:h-[60px] lg:flex lg:flex-col lg:gap-[8px] md:w-[624px] md:h-[60px] md:flex md:flex-col md:gap-[8px] max-sm:flex max-sm:flex-col max-sm:gap-[8px]'>
@@ -83,7 +85,7 @@ const ProductDetailBanner = ({ id, name, category, price, imageUrl, isInStock }:
                             </div>
                         </div>
                     ) : ""}
-                    <button className='lg:w-[488px] lg:h-[50px] lg:rounded-[6px] lg:pt-[13px] lg:pr-[200.62px] lg:pb-[13px] lg:pl-[200px] bg-indigo-600 text-white md:w-[624px] md:h-[50px] md:rounded-[6px] md:py-[13px] md:px-[268.62px] max-sm:w-full max-sm:h-[50px] max-sm:rounded-[6px] max-sm:pt-[13px] max-sm:pr-[135.62px] max-sm:pb-[13px] max-sm:pl-[135.61px]'><p className='lg:w-[86px] lg:h-[24px] lg:max-w-[422px] font-medium lg:text-[16px] lg:leading-[24px] lg:tracking-[0%] lg:flex lg:justify-center lg:items-center md:text-[16px] md:leading-[24px] md:tracking-[0] md:text-center md:flex md:items-center max-sm:text-[16px] max-sm:leading-[24px] max-sm:tracking-[0em] max-sm:text-center text-white'>Add to cart</p></button>
+                    <button className='lg:w-[488px] lg:h-[50px] lg:rounded-[6px] lg:pt-[13px] lg:pr-[200.62px] lg:pb-[13px] lg:pl-[200px] bg-indigo-600 text-white md:w-[624px] md:h-[50px] md:rounded-[6px] md:py-[13px] md:px-[268.62px] max-sm:w-full max-sm:h-[50px] max-sm:rounded-[6px] max-sm:pt-[13px] max-sm:pr-[135.62px] max-sm:pb-[13px] max-sm:pl-[135.61px]'><p className='lg:w-[86px] lg:h-[24px] lg:max-w-[422px] font-medium lg:text-[16px] lg:leading-[24px] lg:tracking-[0%] lg:flex lg:justify-center lg:items-center md:text-[16px] md:leading-[24px] md:tracking-[0] md:text-center md:flex md:items-center max-sm:text-[16px] max-sm:leading-[24px] max-sm:tracking-[0em] max-sm:text-center text-white' onClick={() => navigate('/cart-page')}>Add to cart</p></button>
                 </form>
                 <div className='lg:w-full lg:h-[854.98px]'>
                     <section className='lg:w-full lg:h-[122px] lg:top-[732.98px] lg:flex lg:gap-[24px] lg:mt-[30px] md:flex md:w-[624px] md:h-[122px] md:gap-[24px] md:mt-[30px] max-sm:w-full max-sm:h-[268px] max-sm:flex max-sm:flex-col max-sm:gap-[24px] max-sm:mt-3'>

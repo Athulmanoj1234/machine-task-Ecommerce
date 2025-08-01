@@ -5,7 +5,7 @@
     flex-direction: column;
     height: 60px;
     width: 240px; /* Tailwind w-60 = 15rem = 240px */
-    background-color: #d1d5db; /* Tailwind bg-gray-300 */
+    background-color: #fff; /* Tailwind bg-gray-300 */
     justify-content: center;
     align-items: center;
     gap: 12px; /* Tailwind gap-3 = 0.75rem = 12px */
